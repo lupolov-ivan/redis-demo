@@ -10,6 +10,7 @@ import java.io.Serializable;
 @RedisHash
 public class CustomerAccount implements Serializable {
 
+    @Id
     private String id;
     private String firstName;
     private String lastName;
