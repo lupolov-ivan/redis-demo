@@ -69,8 +69,9 @@ public class CustomerAccountController {
 
     @GetMapping("/customers")
     public List<CustomerAccount> getAllAccounts() {
-        log.info("Request a list of all customer accounts");
-        return service.getAll();
+        List<CustomerAccount> accounts = service.getAll();
+        log.info("Request a list of all customer accounts. Total count: "+ accounts.size());
+        return accounts;
     }
 
     @DeleteMapping("/customers/{id}")
