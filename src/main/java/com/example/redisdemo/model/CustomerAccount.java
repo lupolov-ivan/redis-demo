@@ -15,4 +15,10 @@ public class CustomerAccount implements Serializable {
     private String firstName;
     private String lastName;
     private Integer age;
+
+    public CustomerAccount(String firstName, String lastName, Integer age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
 }

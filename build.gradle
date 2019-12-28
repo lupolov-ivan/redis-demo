@@ -24,6 +24,7 @@ dependencies {
 	compile 'redis.clients:jedis'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	testCompile "org.testcontainers:testcontainers:1.12.3"
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
