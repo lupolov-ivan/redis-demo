@@ -1,5 +1,6 @@
 package com.example.redisdemo.controller;
 
+import com.example.redisdemo.AbstractIntegrationTest;
 import com.example.redisdemo.TestUtils;
 import com.example.redisdemo.exceptions.CustomerAccountNotFoundException;
 import com.example.redisdemo.model.CustomerAccount;
@@ -13,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.servlet.http.HttpServletResponse;
-
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-class CustomerAccountControllerTest {
+public class CustomerAccountControllerTest extends AbstractIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -61,9 +61,9 @@ class CustomerAccountControllerTest {
 
     @Test
     public void updateAccountShouldReturn404() throws Exception {
-        String accountId = "unknown_id";
+        String nonexistentId = "nonexistent_id";
 
-        mockMvc.perform(put("/customers/{id}", accountId)
+        mockMvc.perform(put("/customers/{id}", nonexistentId)
                 .contentType("application/json")
                 .content(TestUtils.readJsonFromResource("com.example.redisdemo.controller/create_update_account.json")))
                 .andExpect(status().isNotFound());
@@ -80,9 +80,9 @@ class CustomerAccountControllerTest {
 
     @Test
     public void deleteAccountShouldReturn404() throws Exception {
-        String accountId = "unknown_id";
+        String nonexistentId = "nonexistent_id";
 
-        mockMvc.perform(delete("/customers/{id}", accountId))
+        mockMvc.perform(delete("/customers/{id}", nonexistentId))
                 .andExpect(status().isNotFound());
     }
 
@@ -102,7 +102,6 @@ class CustomerAccountControllerTest {
         accountRepository.deleteAll();
         accountRepository.save(new CustomerAccount("Vasya", "Pupkin", 21));
         accountRepository.save(new CustomerAccount("Petya", "Vasichkin", 19));
-
 
         mockMvc.perform(get("/customers"))
                 .andExpect(status().isOk())
